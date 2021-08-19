@@ -1,23 +1,22 @@
-import logo from './logo.svg';
+import { useState } from 'react';
+
+import shuffle from 'utils/shuffle';
+import Card from 'components/card';
+
 import './App.css';
 
+import { data } from 'config';
+
 function App() {
+  const [show, setShow] = useState(false);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div onClick={() => setShow(!show)} className="App">
+      <div className="card-wrapper">
+        {data.map(({ image }) => (
+          <Card cardImage={image} />
+        ))}
+      </div>
     </div>
   );
 }
