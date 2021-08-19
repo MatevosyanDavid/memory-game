@@ -1,10 +1,11 @@
-/*.App {
-  display: flex;
-}*/
+.App {
+  text-align: center;
+}
 .card-wrapper {
   display: inline-grid;
   max-width: 800px;
-  grid-template-columns: repeat(4, auto);
-  grid-template-rows: repeat(4, auto);
+  grid-template-columns: repeat(6, auto);
+  grid-template-rows: repeat(6, auto);
   gap: 8px;
+  margin: 0 auto;
 }

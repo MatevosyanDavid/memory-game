@@ -1,9 +1,23 @@
-const getCardData = image => ({
-	image: `assets/images/cards/${image}.svg`,
+const importAllImages = context =>
+	context.keys().reduce((acc, item) => {
+		acc[item.replace('./', '')] = context(item);
+		return acc;
+	}, {});
+
+const images = importAllImages(
+	require.context('assets/images/cards/', false, /\.(png|jpe?g|svg)$/),
+);
+
+const getCardData = label => ({
+	label,
 	isEqual: false,
+	id: Math.random() * 100,
+	image: images[`${label}.svg`].default,
 });
 
-export const data = [
+const imageNames = [
+	'10_1',
+	'10_2',
 	'ace_1',
 	'ace_2',
 	'ace_3',
@@ -20,4 +34,6 @@ export const data = [
 	'king_2',
 	'king_3',
 	'king_4',
-].map(cardName => getCardData(cardName));
+];
+
+export const data = [...imageNames, ...imageNames].map(cardName => getCardData(cardName));
