@@ -1,11 +1,11 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 
 import { data } from 'config';
 import { useMount } from 'utils/hooks';
 import { shuffle, findCardById } from 'utils';
-import Card from 'components/card';
 import Button from 'components/button';
 
+import Card from './card';
 import './index.scss';
 
 function Game() {
@@ -57,21 +57,24 @@ function Game() {
     }
   }, [showedCards]);
 
-  const handleCardClick = cardId => {
-    if (showedCards.length === 1) {
-      setShowedCards(showedCards => [...showedCards, cardId]);
-    } else {
-      clearTimeout(timerId.current);
-      setShowedCards([cardId]);
-    }
-  };
+  const handleCardClick = useCallback(
+    cardId => {
+      if (showedCards.length === 1) {
+        setShowedCards(showedCards => [...showedCards, cardId]);
+      } else {
+        clearTimeout(timerId.current);
+        setShowedCards([cardId]);
+      }
+    },
+    [showedCards.length],
+  );
 
-  const handleResetGame = () => {
+  const handleResetGame = useCallback(() => {
     setCardData([]);
     setShowedCards([]);
     setMatchesCardCount(0);
     setCardData(shuffle(data));
-  };
+  }, []);
 
   return (
     <>

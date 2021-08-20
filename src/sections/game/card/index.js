@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import classNames from 'classnames';
 
 import cardBack from 'assets/images/cardback.png';
@@ -20,4 +21,4 @@ const Card = ({ id, show, handleCardClick, image, label }) => (
 	</>
 );
 
-export default Card;
+export default memo(Card);
