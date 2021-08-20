@@ -11,13 +11,13 @@ import './index.scss';
 function Game() {
   const timerId = useRef(null);
   const [isWin, setIsWin] = useState(false);
-  const [cardData, setCardData] = useState(data);
+  const [cardData, setCardData] = useState([]);
   const [showedCards, setShowedCards] = useState([]);
   const [matchesCardCount, setMatchesCardCount] = useState(0);
 
-  // useMount(() => {
-  //   setCardData(shuffle(data));
-  // });
+  useMount(() => {
+    setCardData(shuffle(data));
+  });
 
   useEffect(() => {
     if (matchesCardCount === 18) {
