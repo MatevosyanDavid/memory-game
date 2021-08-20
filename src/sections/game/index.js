@@ -70,6 +70,7 @@ function Game() {
   );
 
   const handleResetGame = useCallback(() => {
+    setIsWin(false);
     setCardData([]);
     setShowedCards([]);
     setMatchesCardCount(0);
