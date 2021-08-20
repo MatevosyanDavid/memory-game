@@ -10,7 +10,7 @@ const images = importAllImages(
 
 const getCardData = label => ({
 	label,
-	isEqual: false,
+	isMatches: false,
 	id: Math.random() * 100,
 	image: images[`${label}.svg`].default,
 });
