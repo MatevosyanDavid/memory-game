@@ -11,13 +11,13 @@ import './index.scss';
 function Game() {
   const timerId = useRef(null);
   const [isWin, setIsWin] = useState(false);
-  const [cardData, setCardData] = useState([]);
-  const [matchesCardCount, setMatchesCardCount] = useState(0);
+  const [cardData, setCardData] = useState(data);
   const [showedCards, setShowedCards] = useState([]);
+  const [matchesCardCount, setMatchesCardCount] = useState(0);
 
-  useMount(() => {
-    setCardData(shuffle(data));
-  });
+  // useMount(() => {
+  //   setCardData(shuffle(data));
+  // });
 
   useEffect(() => {
     if (matchesCardCount === 18) {
@@ -60,13 +60,13 @@ function Game() {
   const handleCardClick = useCallback(
     cardId => {
       if (showedCards.length === 1) {
-        setShowedCards(showedCards => [...showedCards, cardId]);
+        !showedCards.includes(cardId) && setShowedCards(showedCards => [...showedCards, cardId]);
       } else {
         clearTimeout(timerId.current);
         setShowedCards([cardId]);
       }
     },
-    [showedCards.length],
+    [showedCards],
   );
 
   const handleResetGame = useCallback(() => {
