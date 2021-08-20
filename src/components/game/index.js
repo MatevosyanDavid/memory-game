@@ -4,6 +4,7 @@ import { data } from 'config';
 import { useMount } from 'utils/hooks';
 import { shuffle, findCardById } from 'utils';
 import Card from 'components/card';
+import Button from 'components/button';
 
 import './index.scss';
 
@@ -74,7 +75,7 @@ function Game() {
           />
         ))}
       </div>
-      <button onClick={handleResetGame}>Reset Game</button>
+      <Button onClick={handleResetGame} label="Reset Game" />
     </>
   );
 }
