@@ -10,12 +10,20 @@ import './index.scss';
 
 function Game() {
   const timerId = useRef(null);
+  const [isWin, setIsWin] = useState(false);
   const [cardData, setCardData] = useState([]);
+  const [matchesCardCount, setMatchesCardCount] = useState(0);
   const [showedCards, setShowedCards] = useState([]);
 
   useMount(() => {
     setCardData(shuffle(data));
   });
+
+  useEffect(() => {
+    if (matchesCardCount === 18) {
+      setIsWin(true);
+    }
+  }, [matchesCardCount]);
 
   useEffect(() => {
     const [selectedFirstCard, selectedSecondCard] = showedCards;
@@ -44,6 +52,7 @@ function Game() {
         });
 
         setShowedCards([]);
+        setMatchesCardCount(matchesCardCount => matchesCardCount + 1);
       }
     }
   }, [showedCards]);
@@ -60,11 +69,13 @@ function Game() {
   const handleResetGame = () => {
     setCardData([]);
     setShowedCards([]);
+    setMatchesCardCount(0);
     setCardData(shuffle(data));
   };
 
   return (
     <>
+      <h2>{isWin ? 'You Win !!!' : matchesCardCount}</h2>
       <div className="card-wrapper">
         {cardData.map(data => (
           <Card
