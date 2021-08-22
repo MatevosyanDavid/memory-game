@@ -89,7 +89,7 @@ function Game() {
 
   return (
     <>
-      <h2>{isWin ? 'You Win !!!' : `Matches Card ${matchesCardCount} : Step ${step}`}</h2>
+      <h2>{isWin ? 'You Win !!!' : `Matches Card ${matchesCardCount}`} : Step {step}</h2>
       <div className="card-wrapper">
         {cardData.map(data => (
           <Card
