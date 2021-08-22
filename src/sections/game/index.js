@@ -78,6 +78,7 @@ function Game() {
       } else {
         clearTimeout(timerId.current);
         setShowedCards([cardId]);
+        setStep(step => step + 1);
       }
     },
     [showedCards],
