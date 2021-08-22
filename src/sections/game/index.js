@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 
 import { data } from 'config';
 import { useMount } from 'utils/hooks';
-import { shuffle, findCardById } from 'utils';
+import { shuffle, findCardById, getTimePerSecond } from 'utils';
 import Button from 'components/button';
 
 import Card from './card';
@@ -10,9 +10,12 @@ import './index.scss';
 
 function Game() {
   const timerId = useRef(null);
+  const indervalId = useRef(null);
   const [step, setStep] = useState(0);
+  const [timer, setTimer] = useState(0);
   const [isWin, setIsWin] = useState(false);
   const [cardData, setCardData] = useState([]);
+  const [startGame, setStartGame] = useState(false);
   const [showedCards, setShowedCards] = useState([]);
   const [matchesCardCount, setMatchesCardCount] = useState(0);
 
@@ -23,16 +26,17 @@ function Game() {
   useEffect(() => {
     if (matchesCardCount === 18) {
       setIsWin(true);
+      clearInterval(indervalId.current);
     }
   }, [matchesCardCount]);
 
   useEffect(() => {
     const timerId = setTimeout(() => {
-      showedCards.length === 1 && setShowedCards([])
-    }, 5000)
+      showedCards.length === 1 && setShowedCards([]);
+    }, 5000);
 
-    return () => clearTimeout(timerId)
-  }, [showedCards])
+    return () => clearTimeout(timerId);
+  }, [showedCards]);
 
   useEffect(() => {
     const [selectedFirstCard, selectedSecondCard] = showedCards;
@@ -80,28 +84,48 @@ function Game() {
   );
 
   const handleResetGame = useCallback(() => {
-    setStep(0)
+    setStep(0);
+    setTimer(0);
     setIsWin(false);
     setCardData([]);
+    setStartGame(false);
     setShowedCards([]);
     setMatchesCardCount(0);
     setCardData(shuffle(data));
+
+    clearInterval(indervalId.current);
   }, []);
+
+  const handleStartGame = () => {
+    setStartGame(true);
+
+    indervalId.current = setInterval(() => {
+      setTimer(timer => timer + 1);
+    }, 1000);
+  };
 
   return (
     <>
-      <h2>{isWin ? 'You Win !!!' : `Matches Card ${matchesCardCount}`} : Step {step}</h2>
-      <div className="card-wrapper">
-        {cardData.map(data => (
-          <Card
-            key={data.id}
-            handleCardClick={handleCardClick}
-            show={showedCards.includes(data.id) || data.isMatches}
-            {...data}
-          />
-        ))}
-      </div>
-      <Button onClick={handleResetGame} label="Reset Game" />
+      <h2>
+        {isWin ? 'You Win !!!' : `Matches Card ${matchesCardCount}`} : Step {step}
+      </h2>
+      <p className="timer">Timer : {getTimePerSecond(timer)}</p>
+      {startGame && (
+        <div className="card-wrapper">
+          {cardData.map(data => (
+            <Card
+              key={data.id}
+              handleCardClick={handleCardClick}
+              show={showedCards.includes(data.id) || data.isMatches}
+              {...data}
+            />
+          ))}
+        </div>
+      )}
+      <Button
+        label={startGame ? 'Reset Game' : 'Start Game'}
+        onClick={startGame ? handleResetGame : handleStartGame}
+      />
     </>
   );
 }
