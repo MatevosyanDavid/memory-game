@@ -10,6 +10,7 @@ import './index.scss';
 
 function Game() {
   const timerId = useRef(null);
+  const [step, setStep] = useState(0);
   const [isWin, setIsWin] = useState(false);
   const [cardData, setCardData] = useState([]);
   const [showedCards, setShowedCards] = useState([]);
@@ -43,6 +44,7 @@ function Game() {
       if (firstCard.label !== secondCard.label) {
         timerId.current = setTimeout(() => {
           setShowedCards([]);
+          setStep(step => step + 1);
 
           clearTimeout(timerId.current);
         }, 1000);
@@ -87,7 +89,7 @@ function Game() {
 
   return (
     <>
-      <h2>{isWin ? 'You Win !!!' : matchesCardCount}</h2>
+      <h2>{isWin ? 'You Win !!!' : `Matches Card ${matchesCardCount} : Step ${step}`}</h2>
       <div className="card-wrapper">
         {cardData.map(data => (
           <Card
