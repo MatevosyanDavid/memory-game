@@ -26,6 +26,14 @@ function Game() {
   }, [matchesCardCount]);
 
   useEffect(() => {
+    const timerId = setTimeout(() => {
+      showedCards.length === 1 && setShowedCards([])
+    }, 5000)
+
+    return () => clearTimeout(timerId)
+  }, [showedCards])
+
+  useEffect(() => {
     const [selectedFirstCard, selectedSecondCard] = showedCards;
 
     if (showedCards.length === 2) {
