@@ -2,6 +2,7 @@
   "short_name": "Memory Game",
   "name": "Memory Game",
   "start_url": ".",
+  "prefer_related_applications": true,
   "icons": [
     {
       "src": "favicon.ico",
