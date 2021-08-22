@@ -80,6 +80,7 @@ function Game() {
   );
 
   const handleResetGame = useCallback(() => {
+    setStep(0)
     setIsWin(false);
     setCardData([]);
     setShowedCards([]);
