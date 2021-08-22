@@ -1,3 +1,4 @@
-# https://www.robotstxt.org/robotstxt.html
+# https://memory-games-react.web.app
+
 User-agent: *
 Disallow:
