@@ -1,6 +1,7 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Memory Game",
+  "name": "Memory Game",
+  "start_url": ".",
   "icons": [
     {
       "src": "favicon.ico",
