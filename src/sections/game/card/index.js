@@ -9,11 +9,11 @@ const Card = ({ id, show, handleCardClick, image, label }) => (
 		<div onClick={() => handleCardClick(id)} className={classNames('flip-card', { show })}>
 			<div className="flip-card-inner">
 				<div className="flip-card-front">
-					<img src={cardBack} alt="Avatar" />
+					<img loading="lazy" src={cardBack} alt="Card Back" />
 				</div>
 				<div className="flip-card-back">
 					<div className="flip-card-front">
-						<img src={image} alt="Avatar" />
+						<img loading="lazy" src={image} alt="Card Front" />
 					</div>
 				</div>
 			</div>
