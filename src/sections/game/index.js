@@ -48,7 +48,6 @@ function Game() {
       if (firstCard.label !== secondCard.label) {
         timerId.current = setTimeout(() => {
           setShowedCards([]);
-          setStep(step => step + 1);
 
           clearTimeout(timerId.current);
         }, 1000);
@@ -74,11 +73,11 @@ function Game() {
   const handleCardClick = useCallback(
     cardId => {
       if (showedCards.length === 1) {
+        setStep(step => step + 1);
         !showedCards.includes(cardId) && setShowedCards(showedCards => [...showedCards, cardId]);
       } else {
         clearTimeout(timerId.current);
         setShowedCards([cardId]);
-        setStep(step => step + 1);
       }
     },
     [showedCards],
