@@ -1,11 +1,11 @@
+import { memo } from 'react';
+
 import './index.scss';
 
-const Button = ({ label, onClick }) => {
-	return (
-		<div className="button-wrapper">
-			<button onClick={onClick}>{label}</button>
-		</div>
-	);
-};
+const Button = ({ label, onClick }) => (
+  <div className="button-wrapper">
+    <button onClick={onClick}>{label}</button>
+  </div>
+);
 
-export default Button;
+export default memo(Button);
