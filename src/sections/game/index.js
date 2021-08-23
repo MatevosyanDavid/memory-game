@@ -72,15 +72,17 @@ function Game() {
 
   const handleCardClick = useCallback(
     cardId => {
-      if (showedCards.length === 1) {
-        setStep(step => step + 1);
-        !showedCards.includes(cardId) && setShowedCards(showedCards => [...showedCards, cardId]);
-      } else {
-        clearTimeout(timerId.current);
-        setShowedCards([cardId]);
+      if(!cardData.find(({ id }) => id === cardId).isMatches) {
+        if (showedCards.length === 1 && !showedCards.includes(cardId)) {
+          setStep(step => step + 1);
+          setShowedCards(showedCards => [...showedCards, cardId]);
+        } else {
+          clearTimeout(timerId.current);
+          setShowedCards([cardId]);
+        }
       }
     },
-    [showedCards],
+    [showedCards, cardData],
   );
 
   const handleResetGame = useCallback(() => {
