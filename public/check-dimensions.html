@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Check Image Dimensions</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .result {
+      margin-top: 20px;
+      padding: 10px;
+      background-color: #f0f0f0;
+      border: 1px solid #ddd;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Check Image Dimensions</h1>
+
+  <div class="result">
+    <h2>Mobile Screenshot Dimensions:</h2>
+    <div id="mobileDimensions">Loading...</div>
+  </div>
+
+  <div class="result">
+    <h2>Desktop Screenshot Dimensions:</h2>
+    <div id="desktopDimensions">Loading...</div>
+  </div>
+
+  <script>
+    function checkImageDimensions(imageUrl, elementId) {
+      const img = new Image();
+      img.onload = function () {
+        document.getElementById(elementId).textContent =
+          `Width: ${this.width}px, Height: ${this.height}px`;
+      };
+      img.onerror = function () {
+        document.getElementById(elementId).textContent =
+          `Error loading image: ${imageUrl}`;
+      };
+      img.src = imageUrl;
+    }
+
+    // Check dimensions when the page loads
+    window.onload = function () {
+      checkImageDimensions('screenshots/mobile.png', 'mobileDimensions');
+      checkImageDimensions('screenshots/desktop.png', 'desktopDimensions');
+    };
+  </script>
+</body>
+
+</html>

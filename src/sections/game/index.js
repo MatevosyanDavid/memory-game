@@ -10,7 +10,7 @@ import './index.scss';
 
 function Game() {
   const timerId = useRef(null);
-  const indervalId = useRef(null);
+  const intervalId = useRef(null);
   const [step, setStep] = useState(0);
   const [timer, setTimer] = useState(0);
   const [isWin, setIsWin] = useState(false);
@@ -20,13 +20,13 @@ function Game() {
   const [matchesCardCount, setMatchesCardCount] = useState(0);
 
   useMount(() => {
-    setCardData(shuffle(data));
+    setCardData(shuffle([...data]));
   });
 
   useEffect(() => {
     if (matchesCardCount === 18) {
       setIsWin(true);
-      clearInterval(indervalId.current);
+      clearInterval(intervalId.current);
     }
   }, [matchesCardCount]);
 
@@ -53,15 +53,15 @@ function Game() {
         }, 1000);
       } else {
         setCardData(cardData => {
-          const data = [...cardData];
+          const newData = [...cardData];
 
           const firstCardIdx = cardData.findIndex(({ id }) => id === selectedFirstCard);
           const secondCardIdx = cardData.findIndex(({ id }) => id === selectedSecondCard);
 
-          data[firstCardIdx] = { ...data[firstCardIdx], isMatches: true };
-          data[secondCardIdx] = { ...data[secondCardIdx], isMatches: true };
+          newData[firstCardIdx] = { ...newData[firstCardIdx], isMatches: true };
+          newData[secondCardIdx] = { ...newData[secondCardIdx], isMatches: true };
 
-          return data;
+          return newData;
         });
 
         setShowedCards([]);
@@ -72,7 +72,7 @@ function Game() {
 
   const handleCardClick = useCallback(
     cardId => {
-      if(!cardData.find(({ id }) => id === cardId).isMatches) {
+      if (!cardData.find(({ id }) => id === cardId).isMatches) {
         if (showedCards.length === 1 && !showedCards.includes(cardId)) {
           setStep(step => step + 1);
           setShowedCards(showedCards => [...showedCards, cardId]);
@@ -93,15 +93,15 @@ function Game() {
     setStartGame(false);
     setShowedCards([]);
     setMatchesCardCount(0);
-    setCardData(shuffle(data));
+    setCardData(shuffle([...data]));
 
-    clearInterval(indervalId.current);
+    clearInterval(intervalId.current);
   }, []);
 
   const handleStartGame = () => {
     setStartGame(true);
 
-    indervalId.current = setInterval(() => {
+    intervalId.current = setInterval(() => {
       setTimer(timer => timer + 1);
     }, 1000);
   };

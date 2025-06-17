@@ -12,7 +12,7 @@ const getCardData = label => ({
   label,
   isMatches: false,
   id: Math.random() * 100,
-  image: images[`${label}.svg`].default,
+  image: images[`${label}.svg`],
 });
 
 const imageNames = [
